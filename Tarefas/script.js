@@ -2,7 +2,7 @@ let listElement = document.querySelector("#app ul");
 let inputElement = document.querySelector("#app input");
 let buttonElement = document.querySelector("#app button");
 
-let tarefas = [];
+let tarefas = JSON.parse(localStorage.getItem("@listaTarefas")) || [];
 
 function render(){
     listElement.innerHTML = "";
@@ -29,6 +29,8 @@ function render(){
 
 }
 
+render();
+
 function adicionar(){
      if(inputElement === ""){
         alert('Registre alguma tarefa'); 
@@ -40,6 +42,7 @@ function adicionar(){
     }
 
     render();
+    salvar();
 }
 
 buttonElement.onclick = adicionar;
@@ -48,4 +51,9 @@ function deletarTarefas(posicao){
     tarefas.splice(posicao, 1);
 
     render();
+    salvar();
 };
+
+function salvar(){
+    localStorage.setItem("@listaTarefas", JSON.stringify(tarefas));
+}
